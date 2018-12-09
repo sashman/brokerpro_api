@@ -1,0 +1,12 @@
+# import Policy from "./generated/prisma.graphql"
+
+type Query {
+  policy: Policy!
+  policies: [Policy!]!
+  customer: Customer!
+  customers: [Customers!]!
+}
+#
+# type Mutation {
+#   createPolict(): Policy
+# }

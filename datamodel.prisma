@@ -1,0 +1,36 @@
+scalar DateTime
+
+type User {
+  id: ID! @unique
+  name: String!
+}
+
+type Policy {
+  id: ID! @unique
+  customer: Customer!
+  policy_number: String!
+  account_exec: String!
+  account_handler: String!
+  long_term_agreement: Boolean!
+  premium_pennies: Int!
+  renewal_date: DateTime!
+  start_date: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Customer {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  company_name: String!
+  company_address: String!
+  company_postcode: String!
+  company_number: String!
+  company_house_match: String
+  company_house_description: String
+  business_description: String!
+  customer_name: String!
+  customer_address: String!
+  customer_postcode: String!
+}
