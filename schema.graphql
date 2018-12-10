@@ -10,6 +10,8 @@ type Query {
 type Mutation {
   createCustomer(customer: CustomerInput!): Customer
   updateCustomer(customer: CustomerInput!, id: ID!): Customer
+  createPolicy(policy: PolicyInput!): Policy
+  updatePolicy(policy: PolicyInput!, id: ID!): Policy
 }
 
 input CustomerInput {
@@ -23,4 +25,15 @@ input CustomerInput {
   customer_name: String!
   customer_address: String!
   customer_postcode: String!
+}
+
+input PolicyInput {
+  customer: Customer!
+  policy_number: String!
+  account_exec: String!
+  account_handler: String!
+  long_term_agreement: Boolean!
+  premium_pennies: Int!
+  renewal_date: DateTime!
+  start_date: DateTime!
 }

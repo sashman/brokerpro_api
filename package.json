@@ -6,6 +6,17 @@
   "scripts": {
     "start": "node index.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -15,5 +26,10 @@
     "morgan": "^1.9.1",
     "prisma-binding": "^2.2.8",
     "prisma-client-lib": "^1.22.2"
+  },
+  "devDependencies": {
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.15.3"
   }
 }
