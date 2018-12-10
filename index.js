@@ -7,12 +7,15 @@ const resolvers = {
   Query: {
     policies: prisma.policies,
     policy:  (_, { id }) => prisma.policies.where({ id }),
-    customers: prisma.customers
+    customers: prisma.customers,
     customer:  (_, { id }) => prisma.customers.where({ id })
   },
-  // Mutation: {
-  //
-  // }
+  Mutation: {
+    // createPolicy: (_, { id }) => prisma.policies.where({ id }),
+    createCustomer: (_, { customer }) => prisma.createCustomer(customer),
+    updateCustomer: (_, { customer, id }) =>
+      prisma.updateCustomer({ data: customer, where: { id } })
+  }
 }
 
 const server = new GraphQLServer({

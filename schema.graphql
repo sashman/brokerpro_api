@@ -4,9 +4,23 @@ type Query {
   policy: Policy!
   policies: [Policy!]!
   customer: Customer!
-  customers: [Customers!]!
+  customers: [Customer!]!
 }
-#
-# type Mutation {
-#   createPolict(): Policy
-# }
+
+type Mutation {
+  createCustomer(customer: CustomerInput!): Customer
+  updateCustomer(customer: CustomerInput!, id: ID!): Customer
+}
+
+input CustomerInput {
+  company_name: String!
+  company_address: String!
+  company_postcode: String!
+  company_number: String!
+  company_house_match: String
+  company_house_description: String
+  business_description: String!
+  customer_name: String!
+  customer_address: String!
+  customer_postcode: String!
+}

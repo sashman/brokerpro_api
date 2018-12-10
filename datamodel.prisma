@@ -30,7 +30,7 @@ type Customer {
   company_house_match: String
   company_house_description: String
   business_description: String!
-  customer_name: String!
+  customer_name: String! @unique
   customer_address: String!
   customer_postcode: String!
 }
