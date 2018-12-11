@@ -351,6 +351,7 @@ input CustomerWhereInput {
 
 input CustomerWhereUniqueInput {
   id: ID
+  customer_name: String
 }
 
 scalar DateTime

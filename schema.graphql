@@ -1,16 +1,16 @@
 # import Policy from "./generated/prisma.graphql"
 
 type Query {
-  policy: Policy!
+  policy(id: ID!): Policy!
   policies: [Policy!]!
-  customer: Customer!
+  customer(id: ID!): Customer!
   customers: [Customer!]!
 }
 
 type Mutation {
   createCustomer(customer: CustomerInput!): Customer
   updateCustomer(customer: CustomerInput!, id: ID!): Customer
-  createPolicy(policy: PolicyInput!): Policy
+  createPolicy(policy: PolicyInput!, customer_id: ID!): Policy
   updatePolicy(policy: PolicyInput!, id: ID!): Policy
 }
 
@@ -28,7 +28,6 @@ input CustomerInput {
 }
 
 input PolicyInput {
-  customer: Customer!
   policy_number: String!
   account_exec: String!
   account_handler: String!

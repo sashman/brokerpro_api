@@ -262,6 +262,7 @@ export interface CustomerUpdateDataInput {
 
 export type CustomerWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  customer_name?: String;
 }>;
 
 export interface CustomerUpdateOneRequiredInput {
@@ -756,27 +757,54 @@ export interface AggregateCustomerSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface PolicySubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
+export interface Customer {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  company_name: String;
+  company_address: String;
+  company_postcode: String;
+  company_number: String;
+  company_house_match?: String;
+  company_house_description?: String;
+  business_description: String;
+  customer_name: String;
+  customer_address: String;
+  customer_postcode: String;
 }
 
-export interface PolicySubscriptionPayloadPromise
-  extends Promise<PolicySubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PolicyPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PolicyPreviousValuesPromise>() => T;
+export interface CustomerPromise extends Promise<Customer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  company_name: () => Promise<String>;
+  company_address: () => Promise<String>;
+  company_postcode: () => Promise<String>;
+  company_number: () => Promise<String>;
+  company_house_match: () => Promise<String>;
+  company_house_description: () => Promise<String>;
+  business_description: () => Promise<String>;
+  customer_name: () => Promise<String>;
+  customer_address: () => Promise<String>;
+  customer_postcode: () => Promise<String>;
 }
 
-export interface PolicySubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PolicySubscriptionPayload>>,
+export interface CustomerSubscription
+  extends Promise<AsyncIterator<Customer>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PolicySubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PolicyPreviousValuesSubscription>() => T;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  company_name: () => Promise<AsyncIterator<String>>;
+  company_address: () => Promise<AsyncIterator<String>>;
+  company_postcode: () => Promise<AsyncIterator<String>>;
+  company_number: () => Promise<AsyncIterator<String>>;
+  company_house_match: () => Promise<AsyncIterator<String>>;
+  company_house_description: () => Promise<AsyncIterator<String>>;
+  business_description: () => Promise<AsyncIterator<String>>;
+  customer_name: () => Promise<AsyncIterator<String>>;
+  customer_address: () => Promise<AsyncIterator<String>>;
+  customer_postcode: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CustomerEdge {
@@ -1040,6 +1068,29 @@ export interface CustomerSubscriptionPayloadSubscription
   previousValues: <T = CustomerPreviousValuesSubscription>() => T;
 }
 
+export interface PolicySubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface PolicySubscriptionPayloadPromise
+  extends Promise<PolicySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PolicyPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PolicyPreviousValuesPromise>() => T;
+}
+
+export interface PolicySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PolicySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PolicySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PolicyPreviousValuesSubscription>() => T;
+}
+
 export interface PolicyPreviousValues {
   id: ID_Output;
   policy_number: String;
@@ -1081,56 +1132,6 @@ export interface PolicyPreviousValuesSubscription
   start_date: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface Customer {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  company_name: String;
-  company_address: String;
-  company_postcode: String;
-  company_number: String;
-  company_house_match?: String;
-  company_house_description?: String;
-  business_description: String;
-  customer_name: String;
-  customer_address: String;
-  customer_postcode: String;
-}
-
-export interface CustomerPromise extends Promise<Customer>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  company_name: () => Promise<String>;
-  company_address: () => Promise<String>;
-  company_postcode: () => Promise<String>;
-  company_number: () => Promise<String>;
-  company_house_match: () => Promise<String>;
-  company_house_description: () => Promise<String>;
-  business_description: () => Promise<String>;
-  customer_name: () => Promise<String>;
-  customer_address: () => Promise<String>;
-  customer_postcode: () => Promise<String>;
-}
-
-export interface CustomerSubscription
-  extends Promise<AsyncIterator<Customer>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  company_name: () => Promise<AsyncIterator<String>>;
-  company_address: () => Promise<AsyncIterator<String>>;
-  company_postcode: () => Promise<AsyncIterator<String>>;
-  company_number: () => Promise<AsyncIterator<String>>;
-  company_house_match: () => Promise<AsyncIterator<String>>;
-  company_house_description: () => Promise<AsyncIterator<String>>;
-  business_description: () => Promise<AsyncIterator<String>>;
-  customer_name: () => Promise<AsyncIterator<String>>;
-  customer_address: () => Promise<AsyncIterator<String>>;
-  customer_postcode: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnection {}
@@ -1222,14 +1223,14 @@ export type ID_Output = string;
 export type Long = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
-
-/*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 DateTime scalar input type, allowing Date
