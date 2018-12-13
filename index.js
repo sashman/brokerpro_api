@@ -14,6 +14,7 @@ const resolvers = {
     createCustomer: (_, { customer }) => prisma.createCustomer(customer),
     updateCustomer: (_, { customer, id }) =>
       prisma.updateCustomer({ data: customer, where: { id } }),
+    deleteCustomer: (_, { id }) => prisma.deleteCustomer({ id }),
     createPolicy: (_, { policy, customer_id }) =>
       prisma.createPolicy({
         ...policy,
@@ -24,7 +25,8 @@ const resolvers = {
         }
       }),
     updatePolicy: (_, { policy, id }) =>
-      prisma.updatePolicy({ data: policy, where: { id } })
+      prisma.updatePolicy({ data: policy, where: { id } }),
+    deletePolicy: (_, { id }) => prisma.deletePolicy({ id })
   },
   Policy: {
     customer: ({ id }) => prisma.policy({ id }).customer()

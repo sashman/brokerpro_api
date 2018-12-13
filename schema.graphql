@@ -10,8 +10,10 @@ type Query {
 type Mutation {
   createCustomer(customer: CustomerInput!): Customer
   updateCustomer(customer: CustomerInput!, id: ID!): Customer
+  deleteCustomer(id: ID!): Customer
   createPolicy(policy: PolicyInput!, customer_id: ID!): Policy
   updatePolicy(policy: PolicyInput!, id: ID!): Policy
+  deletePolicy(id: ID!): Policy
 }
 
 input CustomerInput {
