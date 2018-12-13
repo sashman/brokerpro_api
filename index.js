@@ -7,6 +7,11 @@ const resolvers = {
   Query: {
     policies: () => prisma.policies(),
     policy: (_, { id }) => prisma.policy({ id }),
+    policyCount: () =>
+      prisma
+        .policiesConnection()
+        .aggregate()
+        .count(),
     customers: () => prisma.customers(),
     customer: (_, { id }) => prisma.customer({ id })
   },
