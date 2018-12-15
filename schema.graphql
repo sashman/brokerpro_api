@@ -3,7 +3,7 @@
 type Query {
   policy(id: ID!): Policy!
   policies: [Policy!]!
-  policyCount: Int!
+  policyCount: PolicyCounts!
   customer(id: ID!): Customer!
   customers: [Customer!]!
 }
@@ -15,6 +15,11 @@ type Mutation {
   createPolicy(policy: PolicyInput!, customer_id: ID!): Policy
   updatePolicy(policy: PolicyInput!, id: ID!): Policy
   deletePolicy(id: ID!): Policy
+}
+
+type PolicyCounts {
+  total: Int!
+  long_term: Int!
 }
 
 input CustomerInput {
