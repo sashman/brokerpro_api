@@ -1,4 +1,5 @@
 const { GraphQLServer } = require("graphql-yoga")
+const _ = require("lodash")
 const { prisma } = require("./generated/prisma-client")
 const morgan = require("morgan")
 const PORT = 4000
@@ -17,6 +18,25 @@ const resolvers = {
         .aggregate()
         .count()
     }),
+    policyPremiumTotal: async () => {
+      const policies = await prisma.policies()
+      const total = _.sumBy(policies, ({ premium_pennies }) => premium_pennies)
+      const long_term = _.sumBy(
+        policies.filter(({ long_term_agreement }) => long_term_agreement),
+        ({ premium_pennies }) => premium_pennies
+      )
+
+      return {
+        total,
+        long_term
+      }
+    },
+    policiesByRenewal: (_, { from, to }) =>
+      prisma.policies({
+        where: {
+          AND: [{ renewal_date_gte: from }, { renewal_date_lte: to }]
+        }
+      }),
     customers: () => prisma.customers(),
     customer: (_, { id }) => prisma.customer({ id })
   },

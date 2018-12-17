@@ -3,7 +3,9 @@
 type Query {
   policy(id: ID!): Policy!
   policies: [Policy!]!
+  policiesByRenewal(from: DateTime, to: DateTime): [Policy!]!
   policyCount: PolicyCounts!
+  policyPremiumTotal: PolicyPremiumTotals!
   customer(id: ID!): Customer!
   customers: [Customer!]!
 }
@@ -18,6 +20,11 @@ type Mutation {
 }
 
 type PolicyCounts {
+  total: Int!
+  long_term: Int!
+}
+
+type PolicyPremiumTotals {
   total: Int!
   long_term: Int!
 }
