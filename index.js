@@ -71,6 +71,7 @@ const server = new GraphQLServer({
   }
 })
 
+console.log(`${process.env["PRISMA_ENDPOINT"]}`)
 server.express.use(morgan("combined"))
 server.start(() =>
   console.log(`GraphQL server is running on http://localhost:${PORT}`)
