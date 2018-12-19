@@ -1,4 +1,4 @@
-endpoint: http://localhost:4466
+endpoint: ${env:PRISMA_ENDPOINT, self:custom.local_endpoint}
 datamodel: datamodel.prisma
 generate:
   - generator: javascript-client
@@ -8,3 +8,6 @@ generate:
 hooks:
   post-deploy:
     - prisma generate
+
+custom:
+  local_endpoint: http://localhost:4466
