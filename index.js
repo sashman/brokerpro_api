@@ -2,8 +2,7 @@ const { GraphQLServer } = require("graphql-yoga")
 const _ = require("lodash")
 const { prisma } = require("./generated/prisma-client")
 const morgan = require("morgan")
-const PORT = 4000
-
+const PORT = process.env.PORT || 4000
 const resolvers = {
   Query: {
     policies: () => prisma.policies(),
@@ -64,7 +63,7 @@ const resolvers = {
 }
 
 const server = new GraphQLServer({
-  port: PORT || 4000,
+  port: PORT,
   typeDefs: "./schema.graphql",
   resolvers,
   context: {
