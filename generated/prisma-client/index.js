@@ -20,7 +20,7 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `${process.env["PRISMA_ENDPOINT, self:custom.local_endpoint"]}`
+  endpoint: process.env.PRISMA_ENDPOINT || "http://localhost:4466"
 })
 exports.prisma = new exports.Prisma()
 var models = [
