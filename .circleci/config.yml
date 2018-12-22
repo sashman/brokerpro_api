@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node
     steps:
       - checkout
-      - run: npm i -g prisma
+      - run: sudo npm i -g prisma
       - run: prisma deploy
 workflows:
   version: 2
