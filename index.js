@@ -58,7 +58,8 @@ const resolvers = {
     deletePolicy: (_, { id }) => prisma.deletePolicy({ id })
   },
   Policy: {
-    customer: ({ id }) => prisma.policy({ id }).customer()
+    customer: ({ id }) => prisma.policy({ id }).customer(),
+    product: ({ id }) => prisma.policy({ id }).product()
   }
 }
 
