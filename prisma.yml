@@ -8,6 +8,8 @@ generate:
 hooks:
   post-deploy:
     - prisma generate
+seed:
+  import: seed.graphql
 
 custom:
   local_endpoint: http://localhost:4466

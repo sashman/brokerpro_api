@@ -5,9 +5,17 @@ type User {
   name: String!
 }
 
+type Product {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String! @unique
+}
+
 type Policy {
   id: ID! @unique
   customer: Customer!
+  product: Product!
   policy_number: String!
   account_exec: String!
   account_handler: String!

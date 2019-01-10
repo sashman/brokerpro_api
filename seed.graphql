@@ -1,0 +1,154 @@
+mutation {
+
+  customer1: createCustomer(data: {
+    company_name: "Business Company",
+    company_address: "Somewhere",
+    company_postcode: "ASD123",
+    company_number: "123",
+    company_house_match: "123",
+    company_house_description: "Company",
+    customer_name: "Mr Contact Person",
+    customer_address: "Somewhere",
+    customer_postcode: "ASD123",
+    business_description: "Business description"
+  }) {
+    id
+  }
+
+  customer2: createCustomer(data: {
+    company_name: "Business Company",
+    company_address: "Somewhere",
+    company_postcode: "ASD123",
+    company_number: "123",
+    company_house_match: "123",
+    company_house_description: "Company",
+    customer_name: "Mrs Some Customer",
+    customer_address: "Somewhere",
+    customer_postcode: "ASD123",
+    business_description: "Business description"
+  }) {
+    id
+  }
+
+  product1: createProduct(data: {
+    name: "Financial"
+  }){
+    id
+  }
+
+  product2: createProduct(data: {
+    name: "Commercial Motor"
+  }){
+    id
+  }
+
+  policy1: createPolicy(data:{
+    policy_number: "P123",
+    account_exec: "Exec",
+    account_handler: "Handler",
+    long_term_agreement: true,
+    premium_pennies: 1000000,
+    renewal_date: "2019-05-01",
+    start_date: "2019-01-01",
+    customer: {
+      connect: {
+        customer_name: "Mrs Some Customer"
+      }
+    },
+    product:{
+      connect: {
+        name: "Financial"
+      }
+    }
+  }){
+    id
+  }
+
+  policy2: createPolicy(data:{
+    policy_number: "P101",
+    account_exec: "Exec",
+    account_handler: "Handler",
+    long_term_agreement: false,
+    premium_pennies: 1050000,
+    renewal_date: "2019-05-01",
+    start_date: "2019-01-01",
+    customer: {
+      connect: {
+        customer_name: "Mrs Some Customer"
+      }
+    },
+    product:{
+      connect: {
+        name: "Commercial Motor"
+      }
+    }
+  }){
+    id
+  }
+
+  policy3: createPolicy(data:{
+    policy_number: "P132",
+    account_exec: "Exec",
+    account_handler: "Handler",
+    long_term_agreement: true,
+    premium_pennies: 500000,
+    renewal_date: "2019-05-05",
+    start_date: "2019-01-01",
+    customer: {
+      connect: {
+        customer_name: "Mr Contact Person"
+      }
+    },
+    product:{
+      connect: {
+        name: "Commercial Motor"
+      }
+    }
+  }){
+    id
+  }
+
+  policy4: createPolicy(data:{
+    policy_number: "P135",
+    account_exec: "Exec",
+    account_handler: "Handler",
+    long_term_agreement: true,
+    premium_pennies: 340000,
+    renewal_date: "2019-07-28",
+    start_date: "2019-01-01",
+    customer: {
+      connect: {
+        customer_name: "Mr Contact Person"
+      }
+    },
+    product:{
+      connect: {
+        name: "Financial"
+      }
+    }
+  }){
+    id
+  }
+
+  policy5: createPolicy(data:{
+    policy_number: "P136",
+    account_exec: "Exec",
+    account_handler: "Handler",
+    long_term_agreement: true,
+    premium_pennies: 8000,
+    renewal_date: "2019-10-28",
+    start_date: "2019-01-01",
+    customer: {
+      connect: {
+        customer_name: "Mrs Some Customer"
+      }
+    },
+    product:{
+      connect: {
+        name: "Financial"
+      }
+    }
+  }){
+    id
+  }
+}

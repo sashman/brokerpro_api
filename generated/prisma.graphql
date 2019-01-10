@@ -6,6 +6,10 @@ type AggregatePolicy {
   count: Int!
 }
 
+type AggregateProduct {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -371,6 +375,12 @@ type Mutation {
   upsertPolicy(where: PolicyWhereUniqueInput!, create: PolicyCreateInput!, update: PolicyUpdateInput!): Policy!
   deletePolicy(where: PolicyWhereUniqueInput!): Policy
   deleteManyPolicies(where: PolicyWhereInput): BatchPayload!
+  createProduct(data: ProductCreateInput!): Product!
+  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
+  updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
+  upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteManyProducts(where: ProductWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -399,6 +409,7 @@ type PageInfo {
 type Policy {
   id: ID!
   customer: Customer!
+  product: Product!
   policy_number: String!
   account_exec: String!
   account_handler: String!
@@ -418,6 +429,7 @@ type PolicyConnection {
 
 input PolicyCreateInput {
   customer: CustomerCreateOneInput!
+  product: ProductCreateOneInput!
   policy_number: String!
   account_exec: String!
   account_handler: String!
@@ -488,6 +500,7 @@ input PolicySubscriptionWhereInput {
 
 input PolicyUpdateInput {
   customer: CustomerUpdateOneRequiredInput
+  product: ProductUpdateOneRequiredInput
   policy_number: String
   account_exec: String
   account_handler: String
@@ -523,6 +536,7 @@ input PolicyWhereInput {
   id_ends_with: ID
   id_not_ends_with: ID
   customer: CustomerWhereInput
+  product: ProductWhereInput
   policy_number: String
   policy_number_not: String
   policy_number_in: [String!]
@@ -616,6 +630,148 @@ input PolicyWhereUniqueInput {
   id: ID
 }
 
+type Product {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge]!
+  aggregate: AggregateProduct!
+}
+
+input ProductCreateInput {
+  name: String!
+}
+
+input ProductCreateOneInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+enum ProductOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type ProductPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+type ProductSubscriptionPayload {
+  mutation: MutationType!
+  node: Product
+  updatedFields: [String!]
+  previousValues: ProductPreviousValues
+}
+
+input ProductSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProductWhereInput
+  AND: [ProductSubscriptionWhereInput!]
+  OR: [ProductSubscriptionWhereInput!]
+  NOT: [ProductSubscriptionWhereInput!]
+}
+
+input ProductUpdateDataInput {
+  name: String
+}
+
+input ProductUpdateInput {
+  name: String
+}
+
+input ProductUpdateManyMutationInput {
+  name: String
+}
+
+input ProductUpdateOneRequiredInput {
+  create: ProductCreateInput
+  update: ProductUpdateDataInput
+  upsert: ProductUpsertNestedInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductUpsertNestedInput {
+  update: ProductUpdateDataInput!
+  create: ProductCreateInput!
+}
+
+input ProductWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+}
+
+input ProductWhereUniqueInput {
+  id: ID
+  name: String
+}
+
 type Query {
   customer(where: CustomerWhereUniqueInput!): Customer
   customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
@@ -623,6 +779,9 @@ type Query {
   policy(where: PolicyWhereUniqueInput!): Policy
   policies(where: PolicyWhereInput, orderBy: PolicyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Policy]!
   policiesConnection(where: PolicyWhereInput, orderBy: PolicyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PolicyConnection!
+  product(where: ProductWhereUniqueInput!): Product
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
+  productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -632,6 +791,7 @@ type Query {
 type Subscription {
   customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
   policy(where: PolicySubscriptionWhereInput): PolicySubscriptionPayload
+  product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
